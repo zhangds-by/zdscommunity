@@ -7,7 +7,9 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 /**
- * Created by lhr on 17-8-1.
+ * 
+ * @author zhangds
+ * @date 2020/7/31 15:51
  */
 public interface PermissionService extends BaseService<Permission>{
 

@@ -5,6 +5,7 @@
     </ul>
 </div>
     <script th:src="@{/js/jquery-1.11.2.min.js}"></script>
+<!--    <script th:src="@{https://code.jquery.com/jquery-2.1.1.min.js}"></script>-->
     <script type="text/javascript">
     $.ajax({
         cache: true,
@@ -19,11 +20,11 @@
             $("#menu").append(html);
             //改变当前菜单样式
             $("#menu li a").each(function(){
-            $this = $(this);
-            if($this[0].href==String(window.location)){
-                $this.attr("href","javascript:;");
-                $this.parent().addClass("active");
-            }
+                $this = $(this);
+                if($this[0].href==String(window.location)){
+                    $this.attr("href","javascript:;");
+                    $this.parent().addClass("active");
+                }
             });
         }
     });

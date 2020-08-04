@@ -1,5 +1,6 @@
 package com.quark.admin.service.impl;
 
+import com.google.common.collect.Lists;
 import com.quark.admin.service.AdminUserService;
 import com.quark.admin.service.RoleService;
 import com.quark.admin.utils.PasswordHelper;
@@ -7,6 +8,8 @@ import com.quark.common.base.BaseServiceImpl;
 import com.quark.common.dao.AdminUserDao;
 import com.quark.common.entity.AdminUser;
 import com.quark.common.entity.Role;
+import com.quark.common.enums.impl.UserStatus;
+import com.quark.common.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -46,11 +49,16 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserDao, AdminUse
                 Path<String> $username = root.get("username");
                 Path<Integer> $enable = root.get("enable");
 
-                ArrayList<Predicate> list = new ArrayList<>();
-                if (adminUser.getId() != null) list.add(criteriaBuilder.equal($id, adminUser.getId()));
-                if (adminUser.getEnable() != null) list.add(criteriaBuilder.equal($enable, adminUser.getEnable()));
-                if (adminUser.getUsername() != null)
+                ArrayList<Predicate> list = Lists.newArrayList();
+                if (CommonUtils.notEmpty(adminUser.getId())) {
+                    list.add(criteriaBuilder.equal($id, adminUser.getId()));
+                }
+                if (CommonUtils.notEmpty(adminUser.getEnable())){
+                    list.add(criteriaBuilder.equal($enable, adminUser.getEnable()));
+                }
+                if (adminUser.getUsername() != null){
                     list.add(criteriaBuilder.like($username, "%" + adminUser.getUsername() + "%"));
+                }
 
                 Predicate predicate = criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
                 return predicate;
@@ -64,7 +72,7 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserDao, AdminUse
 
     @Override
     public void saveAdmin(AdminUser entity) {
-        entity.setEnable(1);
+        entity.setEnable(UserStatus.ENABLE.getCode());
         PasswordHelper passwordHelper = new PasswordHelper();
         passwordHelper.encryptPassword(entity);
         save(entity);

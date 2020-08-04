@@ -6,7 +6,7 @@
         <artifactId>quark-parent</artifactId>
         <groupId>com.quark</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../quark-parent/pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>

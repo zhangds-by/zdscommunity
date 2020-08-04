@@ -34,7 +34,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     public JedisPool redisPoolFactory() {
         Logger.getLogger(getClass()).info("JedisPool注入成功！！");
         Logger.getLogger(getClass()).info("redis地址：" + host + ":" + port);
-        Logger.getLogger(getClass()).info("==============最最最后一次修改啦==================");
+        Logger.getLogger(getClass()).info("==============再也不修改啦==================");
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxIdle(maxIdle);
         jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);

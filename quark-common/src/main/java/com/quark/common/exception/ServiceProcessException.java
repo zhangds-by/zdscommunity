@@ -1,8 +1,9 @@
 package com.quark.common.exception;
 
 /**
- * @Author LHR
- * Create By 2017/8/26
+ * 
+ * @author zhangds
+ * @date 2020/7/31 16:06
  */
 public class ServiceProcessException extends RuntimeException {
 

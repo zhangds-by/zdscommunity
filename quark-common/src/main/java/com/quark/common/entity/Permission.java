@@ -8,9 +8,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by lhr on 17-7-31.
+ * 权限
+ * @author zhangds
+ * @date 2020/7/31 15:08
  */
-
 @Entity
 @Table(name = "quark_permission")
 public class Permission implements Serializable{

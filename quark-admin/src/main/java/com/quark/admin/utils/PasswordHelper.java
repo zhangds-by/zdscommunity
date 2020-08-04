@@ -5,7 +5,9 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 
 /**
- * Created by lhr on 17-8-2.
+ * 密码加密
+ * @author zhangds
+ * @date 2020/7/31 16:10
  */
 public class PasswordHelper {
     //private RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();

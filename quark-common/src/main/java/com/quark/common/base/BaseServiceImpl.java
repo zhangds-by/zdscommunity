@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 /**
- * Created by lhr on 17-8-1.
+ * 
+ * @author zhangds
+ * @date 2020/7/31 16:06
  */
 public class BaseServiceImpl<E extends JpaRepository,T> implements BaseService<T>{
 

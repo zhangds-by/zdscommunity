@@ -19,13 +19,11 @@ public class BaseController {
         QuarkResult result = null;
         try{
             result = processor.process();
-        }
-        catch (ServiceProcessException e1){
-            logger.error("ServiceProcess Error Log :"+e1.getLocalizedMessage(),e1);
+        } catch (ServiceProcessException e1){
+            logger.error("ServiceProcess Error Log :"+e1.getLocalizedMessage(), e1);
             result = QuarkResult.error(e1.getMessage());
-        }
-        catch (Exception e){
-            logger.error("Error Log :"+e.getLocalizedMessage(),e);
+        } catch (Exception e){
+            logger.error("Error Log :"+e.getLocalizedMessage(), e);
             result = QuarkResult.error("服务器出现异常");
         }
 

@@ -117,6 +117,7 @@
 </div>
 <script th:src="@{/js/jquery-1.11.2.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
+<!--<script th:src="@{https://code.jquery.com/jquery-2.1.1.min.js}"></script>-->
 <script th:src="@{/js/jquery.dataTables.min.js}"></script>
 <script th:src="@{/js/layer.js}"></script>
 <script type="text/javascript">
@@ -141,7 +142,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: '/admins',
+                    url: '/admins/getAll',
                     cache : false,  //禁用缓存
                     data:param,    //传入已封装的参数
                     dataType: "json",
@@ -226,6 +227,22 @@
                 //关闭后的操作
             });
         }
+
+        /*$.post(
+            'admins/add',
+            $('#userForm').serialize(),
+            function (t) {
+                if(data.status == 200){
+                    $('#addAdmin').modal('hide');
+                    layer.msg('保存成功');
+                    table.ajax.reload();
+                } else(data.status == 500)
+                {
+                    $('#addAdmin').modal('hide');
+                    layer.msg(data.error);
+                }
+            }, "json")*/
+
 
         $.ajax({
             cache:true,

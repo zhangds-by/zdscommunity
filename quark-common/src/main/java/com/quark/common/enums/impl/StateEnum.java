@@ -1,4 +1,4 @@
-package com.quark.common.enums;
+package com.quark.common.enums.impl;
 
 public enum StateEnum {
 

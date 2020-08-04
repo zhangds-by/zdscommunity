@@ -20,7 +20,7 @@ public class AdminUserController extends BaseController {
     private AdminUserService adminUserService;
 
     /**
-     * 翻页获取管理员
+     * 分页获取管理员
      *
      * @param adminUser
      * @param draw:请求次数
@@ -28,7 +28,7 @@ public class AdminUserController extends BaseController {
      * @param length
      * @return
      */
-    @GetMapping
+    @GetMapping("/getAll")
     public PageResult getAll(AdminUser adminUser, String draw,
                              @RequestParam(required = false, defaultValue = "1") int start,
                              @RequestParam(required = false, defaultValue = "10") int length) {
@@ -42,6 +42,11 @@ public class AdminUserController extends BaseController {
         return result;
     }
 
+    /**
+     * 添加用管理员账户
+     * @author zhangds
+     * @date 2020/7/31 16:00
+     */
     @PostMapping("/add")
     public QuarkResult addAdmin(@RequestBody AdminUser adminUser) {
 
@@ -55,6 +60,11 @@ public class AdminUserController extends BaseController {
         return result;
     }
 
+    /**
+     * 删除用户
+     * @author zhangds
+     * @date 2020/7/31 16:11
+     */
     @PostMapping("/delete")
     public QuarkResult deleteAdmin(@RequestParam(value = "id[]") AdminUser[] id) {
 

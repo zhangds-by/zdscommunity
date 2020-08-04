@@ -6,6 +6,7 @@ import com.quark.common.base.BaseController;
 import com.quark.common.dto.PageResult;
 import com.quark.common.dto.QuarkResult;
 import com.quark.common.entity.Permission;
+import com.quark.common.enums.impl.PermissionType;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +16,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by lhr on 17-8-3.
+ * 
+ * @author zhangds
+ * @date 2020/7/31 15:11
  */
 @RestController
 @RequestMapping("/permissions")
@@ -26,10 +29,15 @@ public class PermissionController extends BaseController {
     @Autowired
     private ShiroService shiroService;
 
+    /**
+     * 加载当前用户菜单
+     * @author zhangds
+     * @date 2020/7/31 15:25
+     */
     @PostMapping("/loadMenu")
     public List<Permission> loadMenu(){
         Integer userid = (Integer) SecurityUtils.getSubject().getSession().getAttribute("AdminSessionId");
-        List<Permission> list = permissionService.loadUserPermissionByType(userid,1);
+        List<Permission> list = permissionService.loadUserPermissionByType(userid, PermissionType.MENU.getCode());
         return list;
     }
 

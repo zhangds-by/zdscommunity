@@ -3,8 +3,9 @@ package com.quark.common.base;
 import java.util.List;
 
 /**
- * Created by lhr on 17-8-1.
  * Service通用接口
+ * @author zhangds
+ * @date 2020/7/31 15:58
  */
 public interface BaseService<T> {
 

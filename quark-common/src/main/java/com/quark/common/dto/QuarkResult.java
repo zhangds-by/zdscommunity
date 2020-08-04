@@ -1,7 +1,7 @@
 package com.quark.common.dto;
 
 
-import com.quark.common.enums.StateEnum;
+import com.quark.common.enums.impl.StateEnum;
 
 import java.io.Serializable;
 
