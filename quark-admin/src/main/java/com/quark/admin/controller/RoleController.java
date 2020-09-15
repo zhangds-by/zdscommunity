@@ -27,15 +27,10 @@ public class RoleController extends BaseController {
     @GetMapping
     public PageResult getAll(String draw,
                              @RequestParam(required = false, defaultValue = "1") int start,
-                             @RequestParam(required = false, defaultValue = "10") int length) {
-        int pageNo = start / length;
-        Page<Role> page = roleService.findByPage(pageNo, length);
-        PageResult<List<Role>> result = new PageResult<>(
-                draw,
-                page.getTotalElements(),
-                page.getTotalElements(),
-                page.getContent());
-
+                             @RequestParam(required = false, defaultValue = "10") int pageSize) {
+        int pageIndex = start / pageSize;
+        Page<Role> page = roleService.findByPage(pageIndex, pageSize);
+        PageResult<List<Role>> result = new PageResult<>(draw, page.getTotalElements(), page.getTotalElements(), page.getContent());
         return result;
     }
 
@@ -46,7 +41,7 @@ public class RoleController extends BaseController {
     }
 
     @PostMapping("/add")
-    public QuarkResult add(Role role) {
+    public QuarkResult add(@RequestBody Role role) {
         QuarkResult result = restProcessor(() -> {
             roleService.save(role);
             return QuarkResult.ok();

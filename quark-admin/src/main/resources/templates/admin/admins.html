@@ -217,6 +217,7 @@
     function addAdmin() {
         var username = $("#username").val();
         var password = $("#password").val();
+        console.log("添加管理员的账号和密码" + username + password);
         if(username == "" || username == undefined || username == null){
             return layer.msg('用户名不能为空', function(){
                 //关闭后的操作
@@ -243,20 +244,23 @@
                 }
             }, "json")*/
 
-
         $.ajax({
             cache:true,
             type:'POST',
             url:'admins/add',
-            data:$('#userForm').serialize(),
+            // data:$('#userForm').serialize(),
+            // data:JSON.stringify($('#userForm').toString()),
+            dataType:'json',
             async: false,
+            contentType:"application/json",
             success: function(data) {
+                console.log("请求成功数据 === " + data);
                 if(data.status == 200){
                     $('#addAdmin').modal('hide');
                     layer.msg('保存成功');
                     table.ajax.reload();
-                }else(data.status == 500)
-                {
+                }else {
+                    console.log("传输数据" + $('#userForm').toString());
                     $('#addAdmin').modal('hide');
                     layer.msg(data.error);
                 }

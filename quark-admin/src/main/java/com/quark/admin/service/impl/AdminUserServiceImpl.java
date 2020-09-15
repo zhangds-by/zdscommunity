@@ -22,9 +22,6 @@ import java.util.*;
 
 import static java.util.stream.Collectors.toSet;
 
-/**
- * Created by lhr on 17-8-1.
- */
 @Service
 @Transactional
 public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserDao, AdminUser> implements AdminUserService {
@@ -38,8 +35,8 @@ public class AdminUserServiceImpl extends BaseServiceImpl<AdminUserDao, AdminUse
     }
 
     @Override
-    public Page<AdminUser> findByPage(AdminUser adminUser, int pageNo, int length) {
-        PageRequest pageable = new PageRequest(pageNo, length);
+    public Page<AdminUser> findByPage(AdminUser adminUser, int pageIndex, int pageSize) {
+        PageRequest pageable = new PageRequest(pageIndex, pageSize);
 
         Specification<AdminUser> specification = new Specification<AdminUser>() {
 

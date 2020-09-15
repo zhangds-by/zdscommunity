@@ -21,11 +21,11 @@ public interface AdminUserService extends BaseService<AdminUser>{
     /**
      * 根据分页信息获取用户列表
      * @param adminUser
-     * @param pageNo
-     * @param length
+     * @param pageIndex
+     * @param pageSize
      * @return
      */
-    Page<AdminUser> findByPage(AdminUser adminUser, int pageNo, int length);
+    Page<AdminUser> findByPage(AdminUser adminUser, int pageIndex, int pageSize);
 
     /**
      * 保存用户

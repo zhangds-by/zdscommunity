@@ -85,9 +85,9 @@
                 <form id="roleForm">
                     <div class="form-group">
                         <label class="control-label">角色名称:</label>
-                        <input type="text" class="form-control" name="name" id="roleName" placeholder="请输入角色名称"/>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="请输入角色名称"/>
                         <label class="control-label">角色描述:</label>
-                        <input type="text" class="form-control" name="description" id="roleDesc" placeholder="请输入角色描述"/>
+                        <input type="text" class="form-control" name="description" id="description" placeholder="请输入角色描述"/>
                     </div>
                 </form>
             </div>
@@ -156,6 +156,7 @@
             cache: true,
             type: "POST",
             url:'roles/add',
+            contentType:"application/json",
             data:$('#roleForm').serialize(),// 你的formid
             async: false,
             success: function(data) {
