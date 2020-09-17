@@ -22,4 +22,5 @@ public interface PermissionDao extends JpaRepository<Permission,Integer> {
     @Cacheable
     List<Permission> findAll();
 
+    List<Permission> findPermissionsByType(Integer type);
 }

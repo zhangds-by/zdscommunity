@@ -7,3 +7,13 @@
 > 可登录账户
 
     admin/admin
+    
+> 通用语法
+
+    POST请求传参：
+    
+        <script th:src="@{/js/common.js}"></script>
+    
+        data: JSON.stringify($('#userForm').serializeObject()),
+        dataType: 'json',
+        contentType: "application/json",

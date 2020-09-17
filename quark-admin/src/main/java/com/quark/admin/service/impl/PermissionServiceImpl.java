@@ -20,9 +20,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * Created by lhr on 17-8-1.
- */
 @Service
 @Transactional
 public class PermissionServiceImpl extends BaseServiceImpl<PermissionDao, Permission> implements PermissionService {
@@ -69,8 +66,11 @@ public class PermissionServiceImpl extends BaseServiceImpl<PermissionDao, Permis
         Set<Permission> permissions = roleService.findOne(id).getPermissions();
         List<Permission> all = repository.findAll();
         for (Permission p: all) {
-            if (permissions.contains(p)) p.setChecked("true");
-            else p.setChecked("false");
+            if (permissions.contains(p)){
+                p.setChecked("true");
+            } else{
+                p.setChecked("false");
+            }
         }
         return all;
     }
@@ -82,6 +82,12 @@ public class PermissionServiceImpl extends BaseServiceImpl<PermissionDao, Permis
         PageRequest pageRequest = new PageRequest(pageNo, length,sort);
         Page<Permission> page = repository.findAll(pageRequest);
         return page;
+    }
+
+    @Override
+    public List<Permission> getPermissionsByType(Integer type) {
+        List<Permission> permissions = repository.findPermissionsByType(type);
+        return permissions;
     }
 
 }

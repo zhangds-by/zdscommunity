@@ -6,6 +6,7 @@ import com.quark.common.dao.ReplyDao;
 import com.quark.common.entity.Posts;
 import com.quark.common.entity.Reply;
 import com.quark.common.entity.User;
+import com.quark.common.utils.CommonUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -14,10 +15,6 @@ import org.springframework.stereotype.Service;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 
-/**
- * @Author LHR
- * Create By 2017/9/3
- */
 @Service
 public class ReplyServiceImpl extends BaseServiceImpl<ReplyDao,Reply> implements ReplyService {
 
@@ -34,9 +31,9 @@ public class ReplyServiceImpl extends BaseServiceImpl<ReplyDao,Reply> implements
                 Path<User> $user = root.get("user");
 
                 ArrayList<Predicate> list = new ArrayList<>();
-                if (reply.getId()!=null) list.add(criteriaBuilder.equal($id,reply.getId()));
-                if (reply.getContent()!=null) list.add(criteriaBuilder.like($content,"%" + reply.getContent() + "%"));
-                if (reply.getUser()!=null) list.add(criteriaBuilder.equal($user,reply.getUser()));
+                if (CommonUtils.notEmpty(reply.getId())) list.add(criteriaBuilder.equal($id,reply.getId()));
+                if (CommonUtils.notEmpty(reply.getContent())) list.add(criteriaBuilder.like($content,"%" + reply.getContent() + "%"));
+                if (CommonUtils.notEmpty(reply.getUser())) list.add(criteriaBuilder.equal($user,reply.getUser()));
 
                 Predicate predicate = criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
 

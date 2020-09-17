@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * @Author LHR
- * Create By 2017/9/3
- */
 @RequestMapping("/posts")
 @RestController
 public class PostsController extends BaseController {
@@ -38,14 +34,15 @@ public class PostsController extends BaseController {
             posts.setUser(user);
         }
         Page<Posts> page = postsService.findByPage(posts, pageNo, length);
-        PageResult<List<Posts>> result = new PageResult<>(
-                draw,
-                page.getTotalElements(),
-                page.getTotalElements(),
-                page.getContent());
+        PageResult<List<Posts>> result = new PageResult<>( draw, page.getTotalElements(), page.getTotalElements(), page.getContent());
         return result;
     }
 
+    /**
+     * 置顶
+     * @param id
+     * @return
+     */
     @PostMapping("/saveTop")
     public QuarkResult saveTop(@RequestParam(value = "id[]") Integer[] id) {
         QuarkResult result = restProcessor(() -> {
@@ -55,6 +52,11 @@ public class PostsController extends BaseController {
         return result;
     }
 
+    /**
+     * 加精
+     * @param id
+     * @return
+     */
     @PostMapping("/saveGood")
     public QuarkResult saveGood(@RequestParam(value = "id[]") Integer[] id) {
         QuarkResult result = restProcessor(() -> {

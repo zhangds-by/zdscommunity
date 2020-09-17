@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * @Author LHR
- * Create By 2017/9/3
- */
 @RequestMapping("/labels")
 @RestController
 public class LabelController extends BaseController {
@@ -30,11 +26,7 @@ public class LabelController extends BaseController {
 
         int pageNo = start / length;
         Page<Label> page = labelService.findByPage(pageNo, length);
-        PageResult<List<Label>> result = new PageResult<>(draw,
-                page.getTotalElements(),
-                page.getTotalElements(),
-                page.getContent());
-
+        PageResult<List<Label>> result = new PageResult<>(draw, page.getTotalElements(), page.getTotalElements(), page.getContent());
         return result;
     }
 
@@ -48,12 +40,11 @@ public class LabelController extends BaseController {
     }
 
     @PostMapping("/add")
-    public QuarkResult addLabels(Label label){
+    public QuarkResult addLabels(@RequestBody Label label){
         QuarkResult result = restProcessor(() -> {
             labelService.save(label);
             return QuarkResult.ok();
         });
-
         return result;
     }
 

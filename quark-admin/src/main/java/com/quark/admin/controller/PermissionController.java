@@ -34,7 +34,7 @@ public class PermissionController extends BaseController {
      * @author zhangds
      * @date 2020/7/31 15:25
      */
-    @PostMapping("/loadMenu")
+    @GetMapping("/loadMenu")
     public List<Permission> loadMenu(){
         Integer userid = (Integer) SecurityUtils.getSubject().getSession().getAttribute("AdminSessionId");
         List<Permission> list = permissionService.loadUserPermissionByType(userid, PermissionType.MENU.getCode());
@@ -47,27 +47,21 @@ public class PermissionController extends BaseController {
             List<Permission> data = permissionService.findPermissionsAndSelected(roleId);
             return QuarkResult.ok(data);
         });
-
         return result;
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public PageResult getAll(String draw,
                              @RequestParam(required = false, defaultValue = "1") int start,
                              @RequestParam(required = false, defaultValue = "10") int length){
         int pageNo = start/length;
         Page<Permission> page = permissionService.findByPage(pageNo, length);
-        PageResult<List<Permission>> result = new PageResult<>(
-                draw,
-                page.getTotalElements(),
-                page.getTotalElements(),
-                page.getContent());
-
+        PageResult<List<Permission>> result = new PageResult<>(draw, page.getTotalElements(), page.getTotalElements(), page.getContent());
         return result;
     }
 
     @PostMapping("/add")
-    public QuarkResult add(Permission permission) {
+    public QuarkResult add(@RequestBody Permission permission) {
         QuarkResult result = restProcessor(() -> {
             permissionService.save(permission);
             //更新权限
@@ -84,6 +78,19 @@ public class PermissionController extends BaseController {
             //更新权限
             shiroService.updatePermission();
             return QuarkResult.ok();
+        });
+        return result;
+    }
+
+    /**
+     * 获取所有是菜单的权限
+     * @return
+     */
+    @GetMapping("/getMenuList")
+    public QuarkResult getMenuList(){
+        QuarkResult result = restProcessor(() -> {
+            List<Permission> permissions = permissionService.getPermissionsByType(PermissionType.MENU.getCode());
+            return QuarkResult.ok(permissions);
         });
         return result;
     }

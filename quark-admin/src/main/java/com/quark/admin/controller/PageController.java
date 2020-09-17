@@ -24,7 +24,6 @@ public class PageController {
 
     /**
      * 登录界面
-     *
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)

@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * @Author LHR
- * Create By 2017/9/3
- */
 @RequestMapping("/replys")
 @RestController
 public class ReplyController extends BaseController {
@@ -40,11 +36,7 @@ public class ReplyController extends BaseController {
         }
 
         Page<Reply> page = replyService.findByPage(reply, pageNo, length);
-        PageResult<List<Reply>> result = new PageResult<>(
-                draw,
-                page.getTotalElements(),
-                page.getTotalElements(),
-                page.getContent());
+        PageResult<List<Reply>> result = new PageResult<>(draw, page.getTotalElements(), page.getTotalElements(), page.getContent());
         return result;
     }
 

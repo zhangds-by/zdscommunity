@@ -56,7 +56,6 @@ public class AdminUserController extends BaseController {
             adminUserService.saveAdmin(adminUser);
             return QuarkResult.ok();
         });
-
         return result;
     }
 
@@ -77,6 +76,12 @@ public class AdminUserController extends BaseController {
     }
 
 
+    /**
+     * 为管理员分配角色
+     * @param uid
+     * @param id
+     * @return
+     */
     @PostMapping("/saveAdminRoles")
     public QuarkResult saveAdminRoles(Integer uid, Integer[] id) {
 
@@ -87,6 +92,11 @@ public class AdminUserController extends BaseController {
         return result;
     }
 
+    /**
+     * 禁用启用管理员
+     * @param id
+     * @return
+     */
     @PostMapping("/saveAdminEnable")
     public QuarkResult saveAdminEnable(@RequestParam(value = "id[]") Integer[] id) {
         QuarkResult result = restProcessor(() -> {

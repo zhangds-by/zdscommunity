@@ -67,11 +67,13 @@
                     </div>
                     <div class="form-group">
                         <label  class="control-label">父权限ID:</label>
-                        <input type="text" class="form-control" id="parentid" name="parentid"  placeholder="请输入父权限ID">
+                        <select class="form-control" name="parentid" id="permission_select" >
+                            <option value="1">直接选择或搜索选择(不选择为一级菜单)</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label  class="control-label">权限链接:</label>
-                        <input type="text" class="form-control" id="perurl" name="perurl"  placeholder="请输入权限链接">
+                        <input type="" class="form-control" id="perurl" name="perurl"  placeholder="请输入权限链接">
                     </div>
                     <div class="form-group">
                         <label  class="control-label">权限类型:</label>
@@ -99,6 +101,7 @@
 <script th:src="@{/js/bootstrap.min.js}" th:sr></script>
 <script th:src="@{/js/jquery.dataTables.min.js}"></script>
 <script th:src="@{/js/layer.js}"></script>
+<script th:src="@{/js/common.js}"></script>
 <script type="text/javascript">
     var table;
     $(".checkall").click(function () {
@@ -113,7 +116,7 @@
             "serverSide": true,//开启服务器模式，使用服务器端处理配置datatable
             "processing": true,//开启读取服务器数据时显示正在加载中……特别是大数据量的时候，开启此功能比较好
 
-            "ajax": 'permissions',
+            "ajax": '/permissions/getAll', //请求接口
             "columns": [
                 {
                     "sClass": "text-center",
@@ -150,38 +153,30 @@
                 },
                 { "orderable": false, "targets": 6 }
             ],
-
         } );
-
-
-
     } );
 
 //    添加权限
     function addPermission() {
         var name = $("#name").val();
-        var parentId = $("#parentid").val();
+        var parentId = $("#permission_select").val();
         var resUrl = $("#perurl").val();
         var sort = $("#sort").val();
 
         if(name == "" || name == undefined || name == null){
             return layer.msg('权限名称不能为空', function(){
-
             });
         }
         if(parentId == "" || parentId == undefined || parentId == null){
             return layer.msg('父权限id不能为空', function(){
-
             });
         }
         if(resUrl == "" || resUrl == undefined || resUrl == null){
             return layer.msg('权限链接不能为空', function(){
-
             });
         }
         if(sort == "" || sort == undefined || sort == null){
             return layer.msg('权限排序不能为空', function(){
-
             });
         }
 
@@ -189,13 +184,15 @@
             cache: true,
             type: "POST",
             url:'permissions/add',
-            data:$('#permissionsForm').serialize(),
+            data: JSON.stringify($('#permissionsForm').serializeObject()),
+            dataType: 'json',
+            contentType: "application/json",
             async: false,
             success: function(data) {
                 if(data.status == 200){
                     $('#permissionsModal').modal('hide');
-                    table.ajax.reload();
                     layer.msg('保存成功');
+                    table.ajax.reload();
                 }else{
                     $('#permissionsModal').modal('hide');
                     layer.msg(data.error);
@@ -237,6 +234,23 @@
         });
 
     }
+
+    //添加父权限option
+    $.get(
+        "/permissions/getMenuList",
+        function (data) {
+        var htm = "";
+        if (data.status == 200) {
+            console.log(data);
+            for (var i = 0; i < data.data.length; i++) {
+                htm += "<option value='" + data.data[i].id + "'>" + data.data[i].name + "</option>"
+            }
+        } else {
+            layer.msg(data.error, {icon: 5});
+        }
+        console.log(htm);
+        $("#permission_select").append(htm);
+    });
 
 </script>
 

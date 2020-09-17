@@ -44,4 +44,10 @@ public interface PermissionService extends BaseService<Permission>{
     Page<Permission> findByPage(int pageNo, int length);
 
 
+    /**
+     * 按类型获取权限
+     * @param type
+     * @return
+     */
+    List<Permission> getPermissionsByType(Integer type);
 }

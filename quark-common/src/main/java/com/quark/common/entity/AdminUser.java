@@ -28,7 +28,6 @@ public class AdminUser implements Serializable{
     @Column(nullable = false)
     private String password;
 
-
     //是否可以使用,默认为１
     @Column(nullable = false)
     private Integer enable = 1;

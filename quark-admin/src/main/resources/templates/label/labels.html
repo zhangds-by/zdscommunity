@@ -114,6 +114,7 @@
 <script th:src="@{/js/bootstrap.min.js}"></script>
 <script th:src="@{/js/jquery.dataTables.min.js}"></script>
 <script th:src="@{/js/layer.js}"></script>
+<script th:src="@{/js/common.js}"></script>
 <script type="text/javascript">
     var table;
     $(".checkall").click(function () {
@@ -193,8 +194,6 @@
     function addLable() {
         var name = $("#name").val();
         var details = $("#details").val();
-
-
         if(name == "" || name == undefined || name == null){
             return layer.msg('标签名称不能为空', function(){
             });
@@ -209,7 +208,9 @@
             cache: true,
             type: "POST",
             url:'labels/add',
-            data:$('#labelsForm').serialize(),
+            data: JSON.stringify($('#labelsForm').serializeObject()),
+            dataType: 'json',
+            contentType: "application/json",
             async: false,
             success: function(data) {
                 if(data.status == 200){

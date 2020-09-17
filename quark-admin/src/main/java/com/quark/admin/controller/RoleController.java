@@ -13,10 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * @Author LHR
- * Create By 2017/8/12
- */
 @RestController
 @RequestMapping("/roles")
 public class RoleController extends BaseController {
@@ -34,8 +30,8 @@ public class RoleController extends BaseController {
         return result;
     }
 
-    @PostMapping("/rolesWithSelected")
-    public QuarkResult rolesWithSelected(Integer uid) {
+    @GetMapping("/rolesWithSelected/{uid}")
+    public QuarkResult rolesWithSelected(@PathVariable Integer uid) {
         QuarkResult result = roleService.findRolesAndSelected(uid);
         return result;
     }
@@ -50,9 +46,9 @@ public class RoleController extends BaseController {
     }
 
     @PostMapping("/delete")
-    public QuarkResult delete(@RequestParam(value = "id[]") Role[] id){
+    public QuarkResult delete(@RequestParam(value = "ids[]") Role[] ids){
         QuarkResult result = restProcessor(() -> {
-            roleService.deleteInBatch(Arrays.asList(id));
+            roleService.deleteInBatch(Arrays.asList(ids));
             return QuarkResult.ok();
         });
 
